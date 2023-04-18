@@ -1,0 +1,16 @@
+File Naming Convention and description 
+
+1. Controller.py -> The main functioning of the File
+2. Lambda_function.py -> To trigger the lambda and plot map based on the given attributes
+3. Unittest.py -> Unit test case function for testing
+4. Search Keyword and Revenue Plot Image -> Image describing the plot generated using matplotlib
+5. ETL pipeline Image -> ETL pipeline image utilizing AWS
+6. Lambda Configuration
+
+User will need
+1. AWS Account
+2. IAM Role accessing S3 and Lambda functionalities
+3. AWS S3
+4. Lambda Function and declare the environ variables of input_file_name and bucket_name
+5. Add layers in Lambda accessing Pandas and other libraries
+6. Add Trigger allowing S3 and declare source and destination
