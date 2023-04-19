@@ -24,7 +24,7 @@ def lambda_handler(event, context):
 
         # Calculate total revenue generated based on search engine and keyword
         filtered_df = filtered_df.groupby(['Search Engine Domain', 'Search Keyword'])['Revenue'].sum()
-        filtered_df = filtered_df.reset_index()
+        filtered_df = filtered_df.reset_index().sort_values(by=['Revenue'],ascending=False)
         filtered_df = filtered_df.groupby(filtered_df['Search Keyword'])['Revenue'].mean()
         filtered_df.plot(kind='bar')
         plt.title('Mean revenue by Search Keyword')
