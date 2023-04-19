@@ -66,7 +66,11 @@ class DataExtractor():
   def extract_revenue(self, row: Mapping[str, str], product_list_key = 'product_list', event_list_key='event_list'):
     if not row[product_list_key]:
       return 0.0
-    revenue = row[product_list_key].split(';')[3]
+    
+    product_list_length = row.get(product_list_key, '')
+    if len(product_list_length.split(';')) < 4:
+        return 0.0
+    revenue = row.get(row[product_list_key].split(';')[3], 0.0)
     if isinstance(row[event_list_key], float):
       event_list = int(row[event_list_key])
     else:
@@ -75,6 +79,7 @@ class DataExtractor():
     if '1' not in set(events):
       return 0.0
     return float(revenue)
+  
   def timestamp_value(self,date_time ):
 
     date_obj = datetime.strptime(date_time, '%m/%d/%y %H:%M')
