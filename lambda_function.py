@@ -25,7 +25,14 @@ def lambda_handler(event, context):
         # Calculate total revenue generated based on search engine and keyword
         filtered_df = filtered_df.groupby(['Search Engine Domain', 'Search Keyword'])['Revenue'].sum()
         filtered_df = filtered_df.reset_index()
+        filtered_df = filtered_df.groupby(filtered_df['Search Keyword'])['Revenue'].mean()
+        filtered_df.plot(kind='bar')
+        plt.title('Mean revenue by Search Keyword')
+        plt.xlabel('Search Keyword')
+        plt.ylabel('Mean Revenue')
+        plt.show()
+        # print(filtered_df)
         output_file_name = '{formatted_date}_SearchKeywordPerformance.tsv'.format(formatted_date=formatted_date)
-        response = filtered_df.to_csv("/tmp/{output_file_name}.format(output_file_name=output_file_name)", sep='\t')
-        response = s3.upload_file("/tmp/{output_file_name}.format(output_file_name=output_file_name)", bucket,
-                                  output_file_name)
+        response = filtered_df.to_csv("/tmp/{output_file_name}.format(output_file_name=output_file_name)", sep = '\t')
+        response = s3.upload_file("/tmp/{output_file_name}.format(output_file_name=output_file_name)",bucket,output_file_name )
+      
